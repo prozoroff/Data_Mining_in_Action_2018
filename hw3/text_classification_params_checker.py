@@ -5,7 +5,7 @@ from sklearn.feature_extraction.text import TfidfTransformer
 from sklearn.linear_model import LogisticRegression
 from sklearn.pipeline import make_pipeline
 import numpy as np
-import signal
+#import signal
 import os
 import json
 import sys
@@ -37,8 +37,8 @@ class Checker(object):
             with open(params_path, 'r') as f:
                 params = json.load(f)
 
-            signal.signal(signal.SIGALRM, signal_handler)
-            signal.alarm(60)
+            #signal.signal(signal.SIGALRM, signal_handler)
+            #signal.alarm(60)
             pipeline = make_pipeline(
                 CountVectorizer(**params['count_vectorizer_params']), 
                 TfidfTransformer(**params['tfidf_transformer_params']), 
