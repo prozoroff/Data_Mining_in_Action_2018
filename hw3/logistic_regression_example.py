@@ -4,9 +4,9 @@ from sklearn.base import BaseEstimator
 
 
 LR_PARAMS_DICT = {
-    'C': 10.,
+    'C': .01,
     'random_state': 777,
-    'iters': 1000,
+    'iters': 10000,
     'batch_size': 1000,
     'step': 0.01
 }
@@ -33,8 +33,10 @@ class MyLogisticRegression(BaseEstimator):
 
     # производная регуляризатора
     def der_reg(self):
-        # TODO
-        return 0.
+        return self.C * self.w
+
+    def logistic(self, t):
+        return 1. / (1 + np.exp(-t))
 
     # будем считать стохастический градиент не на одном элементе, а сразу на пачке (чтобы было эффективнее)
     def der_loss(self, x, y):
@@ -42,13 +44,13 @@ class MyLogisticRegression(BaseEstimator):
         # y.shape == (batch_size,)
 
         # считаем производную по каждой координате на каждом объекте
-        # TODO
-        ders_w = 0.
-        der_w0 = 0.
+        t = self.__predict(x)
+        delta = y - self.logistic(t)
+        ders_w = -np.multiply(x, delta.reshape(-1, 1))
+        der_w0 = -delta
 
         # для масштаба возвращаем средний градиент по пачке
-        # TODO
-        return 0., 0.
+        return np.mean(ders_w, axis=0), np.mean(der_w0)
 
     def fit(self, X_train, y_train):
         # RandomState для воспроизводитмости
