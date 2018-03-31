@@ -1,14 +1,16 @@
-
 {
     "count_vectorizer_params": 
-    {
-        "min_df": 5,
-        "ngram_range": [1, 2]
-    }, 
-    "tfidf_transformer_params": {
-        "norm": "l1"    
-    }, 
-    "logistic_regression_params": {
-        "C": 1
-    }
+        {
+            "min_df": 0,
+            "max_df": 0.114,
+            "ngram_range": [1, 1]
+        }, 
+    "tfidf_transformer_params": 
+        {
+            "norm": "l2"    
+        }, 
+    "logistic_regression_params": 
+        {
+            "C": 14
+        }
 }
